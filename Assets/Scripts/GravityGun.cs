@@ -90,8 +90,12 @@ public class GravityGun : MonoBehaviour
             RaycastHit hit;
             canGrab = Physics.Raycast(ray, out hit, maxGrabDist, layerMask);
 
+            Debug.Log(canGrab);
+
             if (canGrab) {                
                 GameObject grabbed_candidate = hit.collider.gameObject;
+
+                Debug.Log(Mathf.Abs(grabbed_candidate.transform.localPosition.z));
 
                 if (Mathf.Abs(grabbed_candidate.transform.localPosition.z) < snipTreshold) {
                     canSnip = true;
