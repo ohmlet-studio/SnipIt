@@ -5,6 +5,8 @@ using UnityEngine;
 public class Snippable : MonoBehaviour
 {
 
+    private float snipTreshold = 0.5f;
+
     public float relative_position;
 
     public GameObject item_needed;
@@ -22,10 +24,14 @@ public class Snippable : MonoBehaviour
 
     public bool isConditionMet() {
         if(item_needed) {
-            return _player.GetComponent<Inventory>().inventory_items.Contains(item_needed);
+            return _player.GetComponent<Inventory>().checkItem(item_needed);
         }
 
         return true;
+    }
+
+    public bool isSnipped() {
+        return ! (Mathf.Abs(transform.localPosition.z) < snipTreshold);
     }
 
     // Update is called once per frame

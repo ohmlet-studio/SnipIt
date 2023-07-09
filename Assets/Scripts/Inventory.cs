@@ -5,6 +5,19 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public List<GameObject> inventory_items;
+    public bool checkItem(GameObject item_needed)
+    {
+        if(inventory_items.Contains(item_needed)) {
+            if(item_needed.GetComponent<ItemScript>().is_consumable) {
+                inventory_items.Remove(item_needed);
+                GameObject.Find("_UI").GetComponentInChildren<ItemListUI>().UpdateUI(inventory_items);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
 
     // Start is called before the first frame update
     void Start()

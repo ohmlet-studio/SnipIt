@@ -7,6 +7,7 @@ public class ItemScript : MonoBehaviour
 
     public string item_name;
     public Sprite item_icon;
+    public bool is_consumable;
 
     public void pick() {
         List<GameObject> inventory = GameObject.Find("_player").GetComponent<Inventory>().inventory_items;
