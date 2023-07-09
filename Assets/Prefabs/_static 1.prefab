@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 3893465877390364959}
   - component: {fileID: 3893465877390364956}
   - component: {fileID: 3893465877390364957}
-  - component: {fileID: 3893465877390364958}
+  - component: {fileID: 420976860798238807}
   m_Layer: 0
   m_Name: estrade
   m_TagString: Untagged
@@ -217,8 +217,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3893465877390364958
-BoxCollider:
+--- !u!64 &420976860798238807
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -227,9 +227,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1.0000001}
-  m_Center: {x: 0.00000006891787, y: -0.000015974045, z: -0.00000009965151}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3893465877622143186
 GameObject:
   m_ObjectHideFlags: 0
