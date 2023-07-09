@@ -1977,7 +1977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3e7f8397674a44fb01b1158fc13083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relative_position: 0.07
+  relative_position: 0.006
   item_needed: {fileID: 207734289}
 --- !u!64 &1951276462
 MeshCollider:
@@ -2251,6 +2251,18 @@ PrefabInstance:
     - target: {fileID: 2240828245290772297, guid: e33f4e0e9e9704c409299a925b0463cc, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963024514583046632, guid: e33f4e0e9e9704c409299a925b0463cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 61.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970530696842762675, guid: e33f4e0e9e9704c409299a925b0463cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 62.435
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195423931690829039, guid: e33f4e0e9e9704c409299a925b0463cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 62.435
       objectReference: {fileID: 0}
     - target: {fileID: 6179371432603440997, guid: e33f4e0e9e9704c409299a925b0463cc, type: 3}
       propertyPath: m_RootOrder
