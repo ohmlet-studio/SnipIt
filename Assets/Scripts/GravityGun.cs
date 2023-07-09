@@ -9,6 +9,7 @@ public class GravityGun : MonoBehaviour
     public Camera cam;
     public float maxGrabDist = 100f;
     public float snipTreshold = 0.5f;
+    public float snipMaxDist = 10f;
 
     public Image crosshair;
 
@@ -98,15 +99,12 @@ public class GravityGun : MonoBehaviour
             RaycastHit hit;
             canGrab = Physics.Raycast(ray, out hit, float.MaxValue, layerMask);
 
-            Debug.Log(canGrab);
-
             if (canGrab) {                
                 GameObject grabbed_candidate = hit.collider.gameObject;
-
                 Debug.Log(Mathf.Abs(grabbed_candidate.transform.localPosition.z));
 
                isItem = grabbed_candidate.GetComponent<ItemScript>();
-               if (!isItem && Mathf.Abs(grabbed_candidate.transform.localPosition.z) < snipTreshold) {
+               if (!isItem && Mathf.Abs(grabbed_candidate.transform.localPosition.z) < snipTreshold && hit.distance < snipMaxDist) {
                     Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
                     if(snipScript)
                         canSnip = true;
