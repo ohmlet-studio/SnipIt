@@ -7,7 +7,7 @@ public class GravityGun : MonoBehaviour
 {
 
     public Camera cam;
-    public float maxGrabDist = 5f;
+    public float maxGrabDist = 100f;
     public float snipTreshold = 0.5f;
 
     public Image crosshair;
@@ -18,8 +18,10 @@ public class GravityGun : MonoBehaviour
 
     public Sprite spriteHandOpen;
     public Sprite spriteHandClosed;
-    public  Sprite spriteDot;
+    public Sprite spriteDot;
     public Sprite spriteCisors;
+    public Sprite spritePick;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +40,11 @@ public class GravityGun : MonoBehaviour
         emptyGameObject.transform.position = position;
     }
 
-    void updateCrosshair(bool canGrab, bool grabbed, bool cansnip) {
-        if(!grabbed && cansnip) {
+    void updateCrosshair(bool canGrab, bool grabbed, bool cansnip, bool isItem) {
+        if(!grabbed && isItem) {
+            crosshair.sprite = spritePick;
+        }
+        else if(!grabbed && cansnip) {
             crosshair.sprite = spriteCisors;
         }
         else if (!grabbed && canGrab)
@@ -62,6 +67,7 @@ public class GravityGun : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         bool canGrab = false;
         bool canSnip = false;
+        ItemScript isItem = null;
 
         if (grabbed)
         {
@@ -70,25 +76,27 @@ public class GravityGun : MonoBehaviour
             float raycastDistance;
             if (plane.Raycast(ray, out raycastDistance))
             {
-                Vector3 targetPosition = ray.GetPoint(raycastDistance);
-                grabbed.transform.position = targetPosition;
+                if(raycastDistance < maxGrabDist) {
+                    Vector3 targetPosition = ray.GetPoint(raycastDistance);
+                    grabbed.transform.position = targetPosition;
 
-                //Vector3 direction = (targetPosition - transform.position).normalized;
-                //Vector3 newPosition = transform.position + direction * mov_speed * Time.deltaTime;
+                    //Vector3 direction = (targetPosition - transform.position).normalized;
+                    //Vector3 newPosition = transform.position + direction * mov_speed * Time.deltaTime;
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Transform new_parent = grabbed.transform.parent;
-                    grabbed.transform.GetChild(0).parent = new_parent;
-                    Destroy(grabbed);
-                    grabbed = null;
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Transform new_parent = grabbed.transform.parent;
+                        grabbed.transform.GetChild(0).parent = new_parent;
+                        Destroy(grabbed);
+                        grabbed = null;
+                    }
                 }
             }
         } 
         else
         {
             RaycastHit hit;
-            canGrab = Physics.Raycast(ray, out hit, maxGrabDist, layerMask);
+            canGrab = Physics.Raycast(ray, out hit, float.MaxValue, layerMask);
 
             Debug.Log(canGrab);
 
@@ -97,17 +105,30 @@ public class GravityGun : MonoBehaviour
 
                 Debug.Log(Mathf.Abs(grabbed_candidate.transform.localPosition.z));
 
-                if (Mathf.Abs(grabbed_candidate.transform.localPosition.z) < snipTreshold) {
-                    canSnip = true;
+               isItem = grabbed_candidate.GetComponent<ItemScript>();
+               if (!isItem && Mathf.Abs(grabbed_candidate.transform.localPosition.z) < snipTreshold) {
+                    Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
+                    if(snipScript)
+                        canSnip = true;
                 }
 
                 if (Input.GetMouseButtonDown(0)) {
-
-                    if (canSnip)
+                    if (isItem)
+                    {
+                        isItem.pick();
+                    }
+                    else if (canSnip)
                     {
                         Vector3 new_pos = grabbed_candidate.transform.localPosition;
-                        new_pos.z = grabbed_candidate.GetComponent<SnipInPosition>().relative_position;
-                        grabbed_candidate.transform.localPosition = new_pos;
+
+                        Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
+
+                        if(snipScript) {
+                            if(snipScript.isConditionMet()){
+                                new_pos.z = snipScript.relative_position;
+                                grabbed_candidate.transform.localPosition = new_pos;
+                            }
+                        }
                     }
                     else
                     {
@@ -119,7 +140,7 @@ public class GravityGun : MonoBehaviour
             }
         }
 
-        updateCrosshair(canGrab, grabbed, canSnip);
+        updateCrosshair(canGrab, grabbed, canSnip, isItem);
 
     }
 }
