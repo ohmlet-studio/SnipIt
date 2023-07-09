@@ -7,7 +7,8 @@ public class GravityGun : MonoBehaviour
 {
 
     public Camera cam;
-    public float maxGrabDist = 100f;    public float snipMaxDist = 10f;
+    public float maxGrabDist = 100f;
+    public float snipMaxDist = 10f;
 
     public Image crosshair;
 
@@ -100,31 +101,21 @@ public class GravityGun : MonoBehaviour
             if (canGrab) {                
                 GameObject grabbed_candidate = hit.collider.gameObject;
 
-               isItem = grabbed_candidate.GetComponent<ItemScript>();
+                ItemScript itemScript = grabbed_candidate.GetComponent<ItemScript>();
 
-               if (!isItem && hit.distance < snipMaxDist) {
-                    Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
-                    if(snipScript)
+                Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
+                if (!isItem && hit.distance < snipMaxDist && snipScript) {
                         canSnip = !snipScript.isSnipped();
                 }
 
                 if (Input.GetMouseButtonDown(0)) {
-                    if (isItem)
+                    if (itemScript)
                     {
-                        isItem.pick();
+                        itemScript.pick();
                     }
                     else if (canSnip)
                     {
-                        Vector3 new_pos = grabbed_candidate.transform.localPosition;
-
-                        Snippable snipScript = grabbed_candidate.GetComponent<Snippable>();
-
-                        if(snipScript) {
-                            if(snipScript.isConditionMet()){
-                                new_pos.z = snipScript.relative_position;
-                                grabbed_candidate.transform.localPosition = new_pos;
-                            }
-                        }
+                        snipScript.snip();
                     }
                     else
                     {
