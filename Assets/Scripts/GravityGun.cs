@@ -22,10 +22,12 @@ public class GravityGun : MonoBehaviour
     public Sprite spriteCisors;
     public Sprite spritePick;
 
+    public SoundEffectsPlayer soundPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
+        soundPlayer = GetComponent<SoundEffectsPlayer>();
     }
     public void ChangeOriginTo(GameObject target, Vector3 position)
     {
@@ -85,6 +87,7 @@ public class GravityGun : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0))
                     {
+                        soundPlayer.dropS();
                         Transform new_parent = grabbed.transform.parent;
                         grabbed.transform.GetChild(0).parent = new_parent;
                         Destroy(grabbed);
@@ -111,15 +114,18 @@ public class GravityGun : MonoBehaviour
                 if (Input.GetMouseButtonDown(0)) {
                     if (itemScript)
                     {
+                        soundPlayer.unlockS();
                         itemScript.pick();
                     }
                     else if (canSnip)
                     {
+                        soundPlayer.snipS();
                         snipScript.snip();
                     }
                     else
                     {
                         //set new origin to hit pos
+                        soundPlayer.grabS();
                         ChangeOriginTo(grabbed_candidate, hit.point);
                         grabbed = grabbed_candidate.transform.parent.gameObject;
                     }
