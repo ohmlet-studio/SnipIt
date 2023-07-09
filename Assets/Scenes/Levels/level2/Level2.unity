@@ -411,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relative_position: 0
   item_needed: {fileID: 0}
+  item_needed2: {fileID: 0}
 --- !u!64 &1188865844
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -867,6 +868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relative_position: 0
   item_needed: {fileID: 0}
+  item_needed2: {fileID: 0}
 --- !u!1001 &1850708686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1053,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relative_position: 0.006
   item_needed: {fileID: 207734289}
+  item_needed2: {fileID: 0}
 --- !u!64 &1951276462
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1288,6 +1291,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2143930182}
     m_Modifications:
+    - target: {fileID: 280897260300269426, guid: cba94136ddd3a5c45932108805391c94, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2626914d4bd66d418bca5c80ef75d85, type: 2}
+    - target: {fileID: 1418315356145716253, guid: cba94136ddd3a5c45932108805391c94, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 57.9885
+      objectReference: {fileID: 0}
     - target: {fileID: 6697006373234615651, guid: cba94136ddd3a5c45932108805391c94, type: 3}
       propertyPath: m_RootOrder
       value: 0

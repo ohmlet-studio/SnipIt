@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class mainMenuScript : MonoBehaviour
 {
+    public void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void playGame()
     {
+        Cursor.visible = false;
         SceneManager.LoadScene("Museum");
     }
 

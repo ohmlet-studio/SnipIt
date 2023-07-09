@@ -8,7 +8,9 @@ public class Inventory : MonoBehaviour
 
     public bool delItem(GameObject item_needed)
     {
-        return inventory_items.Remove(item_needed);
+        inventory_items.Remove(item_needed);
+        GameObject.Find("_UI").GetComponentInChildren<ItemListUI>().UpdateUI(inventory_items);
+        return true;
     }
 
     public bool checkItem(GameObject item_needed)
