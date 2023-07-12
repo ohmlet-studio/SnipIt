@@ -1,12 +1,10 @@
-# Snip It
-
 <p align="center">
   <img src="https://img.itch.zone/aW1nLzEyNzY3MDM2LnBuZw==/315x250%23c/1RZsyu.png"/>
 </p>
 
 ----
 
-
+# Snip It
 
 Snip away and explore famous paintings in a whole new dimension
 
